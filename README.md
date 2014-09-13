@@ -1,6 +1,6 @@
 # Tracefunky
 
-TODO: Write a gem description
+A Ruby tracer.
 
 ## Installation
 
