@@ -1,0 +1,26 @@
+GOALS
+
+  * Trace method calls
+  * View in browser
+  * Tested
+  * 1.9.x, 2.x support
+  * Shared with peers
+  * Used in day-to-day work
+  * Published gem
+
+20140914
+
+A basic API:
+
+  Tracefunky.trace do
+    user = User.new
+    user.login
+  end
+
+A basic use:
+
+  ruby -Itest tests/unit/user_test.rb -n 'test_login'
+  ls .tracefunky
+    index.html
+    trace.js
+  open .tracefunky/index.html
