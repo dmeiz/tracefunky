@@ -3,6 +3,11 @@ require 'minitest/autorun'
 require 'pry'
 require 'tracefunky'
 
+class TestClass
+  def simple_method
+  end
+end
+
 describe "Tracefunky" do
   before do
     @pwd = FileUtils.pwd
@@ -11,6 +16,8 @@ describe "Tracefunky" do
     FileUtils.rm_r(scratch_dir) if File.exists?(scratch_dir)
     FileUtils.mkdir scratch_dir
     FileUtils.cd scratch_dir
+
+    @test_class = TestClass.new
   end
 
   after do
@@ -34,5 +41,14 @@ describe "Tracefunky" do
     end
 
     File.exists?(".tracefunky").must_equal true
+  end
+
+  it "traces a simple method call" do
+    Tracefunky.trace do
+      @test_class.foo
+    end
+
+    File.exists?(".tracefunky/trace.js").must_equal true
+    #trace = JSON.parse(File.read("trace.json"))
   end
 end
