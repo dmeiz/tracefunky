@@ -1,5 +1,7 @@
 require "tracefunky/version"
 
 module Tracefunky
-  # Your code goes here...
+  def self.trace
+    FileUtils.mkdir ".tracefunky" unless File.exists?(".tracefunky")
+  end
 end
