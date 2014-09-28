@@ -52,4 +52,16 @@ describe "Tracefunky" do
     trace = JSON.parse(File.read(".tracefunky/trace.js"))
     trace.must_equal({"class_name" => "ROOT", "method_name" => "ROOT", "calls" => []})
   end
+
+#  it "must trace a simple method call" do
+#    Tracefunky.trace do
+#    end
+#
+#    trace = JSON.parse(File.read(".tracefunky/trace.js"))
+#    trace.must_equal(
+#      {"class_name" => "ROOT", "method_name" => "ROOT", "calls" => [{
+#      "class_name" => "TestClass", "method_name" => "simple_method", "calls" => []
+#    }]}
+#    )
+#  end
 end
