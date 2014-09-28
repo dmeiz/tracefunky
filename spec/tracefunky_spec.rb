@@ -2,6 +2,7 @@ require 'bundler/setup'
 require 'minitest/autorun'
 require 'pry'
 require 'tracefunky'
+require 'json'
 
 class TestClass
   def simple_method
@@ -43,12 +44,12 @@ describe "Tracefunky" do
     File.exists?(".tracefunky").must_equal true
   end
 
-  it "traces a simple method call" do
+  it "must trace an empty block" do
     Tracefunky.trace do
-      @test_class.foo
     end
 
     File.exists?(".tracefunky/trace.js").must_equal true
-    #trace = JSON.parse(File.read("trace.json"))
+    trace = JSON.parse(File.read(".tracefunky/trace.js"))
+    trace.must_equal({"class_name" => "ROOT", "method_name" => "ROOT", "calls" => []})
   end
 end
