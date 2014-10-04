@@ -6,6 +6,10 @@ require 'json'
 
 class TestClass
   def simple_method
+    simple_method2
+  end
+
+  def simple_method2
   end
 end
 
@@ -53,15 +57,36 @@ describe "Tracefunky" do
     trace.must_equal({"class_name" => "ROOT", "method_name" => "ROOT", "calls" => []})
   end
 
-#  it "must trace a simple method call" do
-#    Tracefunky.trace do
-#    end
-#
-#    trace = JSON.parse(File.read(".tracefunky/trace.js"))
-#    trace.must_equal(
-#      {"class_name" => "ROOT", "method_name" => "ROOT", "calls" => [{
-#      "class_name" => "TestClass", "method_name" => "simple_method", "calls" => []
-#    }]}
-#    )
-#  end
+  it "must trace a simple method call" do
+    Tracefunky.trace do
+      @test_class.simple_method
+      @test_class.simple_method2
+    end
+
+    trace = JSON.parse(File.read(".tracefunky/trace.js"))
+    trace.must_equal(
+      {
+        "class_name" => "ROOT",
+        "method_name" => "ROOT",
+        "calls" => [
+          {
+            "class_name" => "TestClass",
+            "method_name" => "simple_method",
+            "calls" => [
+              {
+                "class_name" => "TestClass",
+                "method_name" => "simple_method2",
+                "calls" => []
+              }
+            ]
+          },
+          {
+            "class_name" => "TestClass",
+            "method_name" => "simple_method2",
+            "calls" => []
+          }
+        ]
+      }
+    )
+  end
 end
