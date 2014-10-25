@@ -1,9 +1,14 @@
 require 'spec_helper'
+require 'tracefunky/tracer19'
 
 describe "Tracer19" do
   describe "#run" do
-    it "should work" do
-      1.must_equal 1
+    let(:tracer) { Tracefunky::Tracer19.new }
+    let(:trace) { nil }
+
+    it "should trace nothing" do
+      tracer.run(trace) do
+      end
     end
   end
 end
