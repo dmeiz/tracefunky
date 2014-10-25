@@ -17,5 +17,9 @@ module Tracefunky
       @stack.push(@current)
       @current = call
     end
+
+    def return
+      @current = @stack.pop
+    end
   end
 end
