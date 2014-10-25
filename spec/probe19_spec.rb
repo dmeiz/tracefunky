@@ -15,6 +15,8 @@ class TestTrace
   end
 end
 
+# A fixture class for testing.
+#
 class TestClass
   def meth
   end
