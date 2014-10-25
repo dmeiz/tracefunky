@@ -8,6 +8,21 @@ GOALS
   * Used in day-to-day work
   * Published gem
 
+20131005
+
+A revised API:
+
+  Tracefunky.trace do
+    user = User.new
+    user.login
+  end
+
+Some output:
+
+  User.new
+  User#login
+    User#authenticate
+
 20140914
 
 A basic API:
