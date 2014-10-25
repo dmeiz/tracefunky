@@ -23,7 +23,7 @@ module Tracefunky
       end
     end
 
-    def initialize(options = {:raw_logger => StdoutRawLogger.new})
+    def initialize(options = {:raw_logger => NullRawLogger.new})
       @raw_logger = options[:raw_logger]
       @root_call = Call.new("ROOT", "ROOT", [])
       @call_stack = []
@@ -44,8 +44,8 @@ module Tracefunky
         if event == "call"
           #puts({:event => event, :file => file, :line => line, :id => id, :classname => classname})
           #print_state "before call"
-          #raw_logger.log("#{classname}##{id}")
-          call = Call.new(classname, id, [])
+          raw_logger.log("#{classname}##{id}")
+          call = Call.new(classname.to_s, id.to_s, [])
           @current_call.calls.push(call)
           @call_stack.push(@current_call)
           @current_call = call
@@ -54,6 +54,7 @@ module Tracefunky
           #puts({:event => event, :file => file, :line => line, :id => id, :classname => classname})
           #print_state "before return"
           @current_call = @call_stack.pop
+          puts @call_stack.length
           #print_state "after return"
         end
       }
@@ -71,12 +72,8 @@ module Tracefunky
     root_call = trace.run(&block)
 
     FileUtils.mkdir ".tracefunky" unless File.exists?(".tracefunky")
-    File.open(".tracefunky/trace.js", "w") do |out|
-      begin
-      JSON.dump(root_call.to_hash, out)
-      rescue ActiveSupport::JSON::Encoding::CircularReferenceError => e
-        binding.pry
-      end
+    File.open(".tracefunky/trace.out", "w") do |out|
+      PP.pp(root_call.to_hash, out)
     end
   end
 end
