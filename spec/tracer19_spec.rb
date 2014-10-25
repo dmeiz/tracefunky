@@ -11,11 +11,12 @@ class TestTrace
   end
 
   def call(class_name, method_name)
-    @events << {
-      :type => :call,
-      :class_name => class_name,
-      :method_name => method_name
-    }
+    @events << [ :call, class_name, method_name ]
+  end
+end
+
+class TestClass
+  def meth
   end
 end
 
@@ -27,6 +28,17 @@ describe "Tracer19" do
     it "should trace nothing" do
       tracer.run(trace) do
       end
+    end
+
+    it "should trace a method call" do
+      klass = TestClass.new
+
+      tracer.run(trace) do
+        klass.meth
+      end
+
+      trace.events.length.must_equal 1
+      trace.events[0].must_equal [ :call, "TestClass", "meth" ]
     end
   end
 end
