@@ -19,13 +19,16 @@ describe "Trace" do
     it "pushes a new call on the trace" do
       trace.call("TestClass", "meth")
 
-      call = trace.root
-      call.calls.length.must_equal 1
+      root_call = trace.root
+      root_call.calls.length.must_equal 1
 
-      call = call.calls[0]
+      call = root_call.calls[0]
       call.class_name.must_equal "TestClass"
       call.method_name.must_equal "meth"
       call.calls.must_equal []
+
+      trace.current.must_equal call
+      trace.stack.must_equal [root_call]
     end
   end
 
@@ -37,13 +40,16 @@ describe "Trace" do
     it "pops a method from the stack" do
       trace.return
 
-      call = trace.root
-      call.calls.length.must_equal 1
+      root_call = trace.root
+      root_call.calls.length.must_equal 1
 
-      call = call.calls[0]
+      call = root_call.calls[0]
       call.class_name.must_equal "TestClass"
       call.method_name.must_equal "meth"
       call.calls.must_equal []
+
+      trace.current.must_equal root_call
+      trace.stack.must_equal []
     end
 
     # when the stack is empty?

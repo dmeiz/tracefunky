@@ -3,7 +3,7 @@ require 'tracefunky/call'
 module Tracefunky
 
   class Trace
-    attr_reader :root
+    attr_reader :root, :current, :stack
 
     def initialize
       @root = Call.new(nil, nil, [])
