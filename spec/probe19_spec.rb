@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'tracefunky/tracer19'
+require 'tracefunky/probe19'
 
-# A trace that just collects information from the tracer to verify in specs.
+# A trace that just collects information from the probe to verify in specs.
 #
 class TestTrace
   attr_reader :events
@@ -20,20 +20,20 @@ class TestClass
   end
 end
 
-describe "Tracer19" do
+describe "Probe19" do
   describe "#run" do
-    let(:tracer) { Tracefunky::Tracer19.new }
+    let(:probe) { Tracefunky::Probe19.new }
     let(:trace) { TestTrace.new }
 
     it "should trace nothing" do
-      tracer.run(trace) do
+      probe.run(trace) do
       end
     end
 
     it "should trace a method call" do
       klass = TestClass.new
 
-      tracer.run(trace) do
+      probe.run(trace) do
         klass.meth
       end
 
