@@ -4,10 +4,10 @@ require 'tracefunky/text_writer'
 describe "TextWriter" do
   before do
     @pwd = FileUtils.pwd
-    scratch_dir = "#{@pwd}/scratch"
-    FileUtils.rm_r(scratch_dir) if File.exists?(scratch_dir)
-    FileUtils.mkdir scratch_dir
-    FileUtils.cd scratch_dir
+    tmp_dir = "#{@pwd}/tmp"
+    FileUtils.rm_r(tmp_dir) if File.exists?(tmp_dir)
+    FileUtils.mkdir tmp_dir
+    FileUtils.cd tmp_dir
   end
 
   after do
