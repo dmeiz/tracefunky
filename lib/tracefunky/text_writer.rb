@@ -10,8 +10,9 @@ module Tracefunky
       @out = File.open(filename, "w")
     end
 
-    def write(call)
-      @out.puts("#{call.class_name}##{call.method_name}")
+    def write(call, depth = 0)
+      @out.puts("#{" " * depth * 2 }#{call.class_name}##{call.method_name}")
+      call.calls.each { |c| write(c, depth + 1) }
     end
 
     def close

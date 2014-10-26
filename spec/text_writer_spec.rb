@@ -15,7 +15,11 @@ describe "TextWriter" do
   end
 
   describe "#write" do
-    let(:call) { Tracefunky::Call.new("TestClass", "meth", []) }
+    let(:call) {
+      Tracefunky::Call.new("TestClass", "meth", [
+        Tracefunky::Call.new("TestClass", "meth2", [] )
+      ])
+    }
 
     it "should write a call" do
       writer = Tracefunky::TextWriter.open("out.txt")
@@ -23,9 +27,11 @@ describe "TextWriter" do
       writer.close
 
       txt = File.read("out.txt")
-      txt.must_equal "TestClass#meth\n"
+
+      txt.must_equal <<END
+TestClass#meth
+  TestClass#meth2
+END
     end
-
-
   end
 end
