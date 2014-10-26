@@ -13,6 +13,10 @@ class TestTrace
   def call(class_name, method_name)
     @events << [ :call, class_name, method_name ]
   end
+
+  def return
+    @events << [ :return ]
+  end
 end
 
 # A fixture class for testing.
@@ -32,15 +36,16 @@ describe "Probe19" do
       end
     end
 
-    it "should trace a method call" do
+    it "should trace a method call and return" do
       klass = TestClass.new
 
       probe.run(trace) do
         klass.meth
       end
 
-      trace.events.length.must_equal 1
+      trace.events.length.must_equal 2
       trace.events[0].must_equal [ :call, "TestClass", "meth" ]
+      trace.events[1].must_equal [ :return ]
     end
   end
 end

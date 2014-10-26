@@ -15,6 +15,8 @@ module Tracefunky
       Proc.new { |event, file, line, id, the_binding, classname|
         if event == "call"
           trace.call(classname.to_s, id.to_s)
+        elsif event == "return"
+          trace.return
         end
       }
     end

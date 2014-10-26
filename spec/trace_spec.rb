@@ -5,7 +5,6 @@ describe "Trace" do
   let(:trace) { Tracefunky::Trace.new }
 
   describe "#initialize" do
-
     it "initializes with a root call" do
       call = trace.root
       call.wont_be_nil
