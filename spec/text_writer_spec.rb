@@ -45,5 +45,20 @@ TestClass#meth
   TestClass#meth2
 END
     end
+
+    it "shouldnt write name for a root call" do
+      root = Tracefunky::Call.root
+      root.calls << Tracefunky::Call.new("TestClass", "meth", [])
+
+      writer = Tracefunky::TextWriter.open("out.txt")
+      writer.write(root)
+      writer.close
+
+      txt = File.read("out.txt")
+
+      txt.must_equal <<END
+TestClass#meth
+END
+    end
   end
 end

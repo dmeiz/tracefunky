@@ -11,8 +11,12 @@ module Tracefunky
     end
 
     def write(call, depth = 0)
-      @out.puts("#{" " * depth * 2 }#{call.class_name}##{call.method_name}")
-      call.calls.each { |c| write(c, depth + 1) }
+      if call.root?
+        call.calls.each { |c| write(c, depth) }
+      else
+        @out.puts("#{" " * depth * 2 }#{call.class_name}##{call.method_name}")
+        call.calls.each { |c| write(c, depth + 1) }
+      end
     end
 
     def close
