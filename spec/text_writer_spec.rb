@@ -16,12 +16,24 @@ describe "TextWriter" do
 
   describe "#write" do
     let(:call) {
-      Tracefunky::Call.new("TestClass", "meth", [
-        Tracefunky::Call.new("TestClass", "meth2", [] )
-      ])
+      Tracefunky::Call.new("TestClass", "meth", [])
     }
 
     it "should write a call" do
+      writer = Tracefunky::TextWriter.open("out.txt")
+      writer.write(call)
+      writer.close
+
+      txt = File.read("out.txt")
+
+      txt.must_equal <<END
+TestClass#meth
+END
+    end
+
+    it "should write a call heirarchy" do
+      call.calls << Tracefunky::Call.new("TestClass", "meth2", [] )
+
       writer = Tracefunky::TextWriter.open("out.txt")
       writer.write(call)
       writer.close
