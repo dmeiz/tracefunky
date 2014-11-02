@@ -1,17 +1,17 @@
 require "tracefunky/version"
+require "tracefunky/trace"
+require "tracefunky/text_writer"
+require "tracefunky/probe19"
 
 module Tracefunky
 
   def self.trace(&block)
     trace = Trace.new
-    Probe19.new.run(trace)
-    trace
 
-    root_call = trace.run(&block)
+    Probe19.new.run(trace, &block)
 
-    FileUtils.mkdir ".tracefunky" unless File.exists?(".tracefunky")
-    File.open(".tracefunky/trace.out", "w") do |out|
-      PP.pp(root_call.to_hash, out)
-    end
+    writer = TextWriter.open("out.txt")
+    writer.write(trace.root)
+    writer.close
   end
 end
