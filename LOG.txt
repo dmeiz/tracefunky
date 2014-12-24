@@ -1,6 +1,10 @@
 TODO
 
+  * Initialize bundler in spec_helper so I can run tests without bundle exec
+  * Debug logging
+  * Probe2x
   * Use in day-to-day work
+  * Set path to output
   * Limit to current workspace (ignore gems)
   * View in browser
   * Published gem
