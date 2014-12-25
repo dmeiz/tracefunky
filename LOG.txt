@@ -1,6 +1,7 @@
 TODO
 
   * Initialize bundler in spec_helper so I can run tests without bundle exec
+  * Move ruby2x? to a Utils class
   * Debug logging
   * Probe2x
   * Use in day-to-day work

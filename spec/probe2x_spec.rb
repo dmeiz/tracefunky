@@ -1,7 +1,8 @@
 require 'spec_helper'
 require 'tracefunky/probe2x'
+require 'tracefunky/utils'
 
-if RUBY_VERSION =~ /\A2.+/
+if Tracefunky.ruby2x?
   describe "Probe2x" do
     describe "#run" do
       let(:probe) { Tracefunky::Probe2x.new }

@@ -10,7 +10,7 @@ module Tracefunky
   def self.trace(&block)
     trace = Trace.new
 
-    if is_ruby2x?
+    if ruby2x?
       Probe2x.new.run(trace, &block)
     else
       Probe19.new.run(trace, &block)
