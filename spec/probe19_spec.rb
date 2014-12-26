@@ -13,6 +13,18 @@ unless Tracefunky.ruby2x?
         end
       end
 
+      it "should accept a :raw_logger option" do
+        klass = TestClass.new
+        test_raw_logger = TestRawLogger.new
+
+        probe.run(trace, {:raw_logger => test_raw_logger}) do
+          klass.meth
+        end
+
+        test_raw_logger.events.length.must_be :>, 0
+        test_raw_logger.events[0].must_be_kind_of Hash
+      end
+
       it "should trace a method call and return" do
         klass = TestClass.new
 

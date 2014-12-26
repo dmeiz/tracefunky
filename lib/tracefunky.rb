@@ -11,13 +11,17 @@ module Tracefunky
     trace = Trace.new
 
     if ruby2x?
-      Probe2x.new.run(trace, &block)
+      Probe2x.new.run(trace, probe_options, &block)
     else
-      Probe19.new.run(trace, &block)
+      Probe19.new.run(trace, probe_options, &block)
     end
 
     writer = TextWriter.open("out.txt")
     writer.write(trace.root)
     writer.close
+  end
+
+  def self.probe_options
+    { :raw_logger => NullRawLogger.new }
   end
 end

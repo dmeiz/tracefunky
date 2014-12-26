@@ -26,3 +26,15 @@ class TestClass
   def meth
   end
 end
+
+class TestRawLogger
+  attr_reader :events
+
+  def initialize
+    @events = []
+  end
+
+  def log(params)
+    @events << params
+  end
+end

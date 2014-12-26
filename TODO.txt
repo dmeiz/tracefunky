@@ -1,11 +1,12 @@
 TODO
 
+  * Debug logging
+  * Limit to current workspace (ignore gems)
+  * Set path to output
+  * View in browser
+  * Use in day-to-day work
+  * Published gem
   * Initialize bundler in spec_helper so I can run tests without bundle exec
   * Move ruby2x? to a Utils class
-  * Debug logging
-  * Probe2x
-  * Use in day-to-day work
-  * Set path to output
-  * Limit to current workspace (ignore gems)
-  * View in browser
-  * Published gem
+
+X * Probe2x

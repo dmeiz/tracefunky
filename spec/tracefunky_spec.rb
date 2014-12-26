@@ -26,4 +26,11 @@ TestClass#meth
 END
     end
   end
+
+  describe ".probe_options" do
+    it "must return default options" do
+      options = Tracefunky.probe_options
+      options[:raw_logger].must_be_kind_of Tracefunky::NullRawLogger
+    end
+  end
 end
