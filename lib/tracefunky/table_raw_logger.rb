@@ -14,7 +14,7 @@ module Tracefunky
         @table.head = @actual_keys.map { |key| key.to_s }
       end
 
-      @table.rows << @actual_keys.map { |key| params[key] }
+      @table.rows << @actual_keys.map { |key| params[key].to_s }
     end
 
     def write(out)

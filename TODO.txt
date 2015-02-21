@@ -1,6 +1,5 @@
 TODO
 
-  * Debug logging
   * Limit to current workspace (ignore gems)
   * Set path to output
   * View in browser
@@ -9,4 +8,5 @@ TODO
   * Initialize bundler in spec_helper so I can run tests without bundle exec
   * Move ruby2x? to a Utils class
 
+X * Debug logging
 X * Probe2x
